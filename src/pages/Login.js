@@ -12,6 +12,12 @@ function Login() {
     return regexEmail.test(ameil);
   };
 
+  const handleClick = () => {
+    localStorage.setItem('user', JSON.stringify({ email }));
+    localStorage.setItem('mealsToken', 1);
+    localStorage.setItem('cocktailsToken', 1);
+  };
+
   return (
     <form>
       <input
@@ -33,6 +39,7 @@ function Login() {
         type="submit"
         data-testid="login-submit-btn"
         disabled={ password.length <= six || !isEmailValid(email) }
+        onClick={ handleClick }
 
       >
         Entrar
