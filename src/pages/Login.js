@@ -1,19 +1,44 @@
-import React from 'react';
-import { Button } from 'react-bootstrap/Button';
+import React, { useState } from 'react';
+import { Button } from 'react-bootstrap';
+
+const six = 6;
 
 function Login() {
+  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
+
+  const isEmailValid = (ameil) => {
+    const regexEmail = /^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/;
+    return regexEmail.test(ameil);
+  };
+
   return (
-    <>
-      <input type="email" placeholder="Digite seu E-mail" data-testid="email-input" />
+    <form>
+      <input
+        type="email"
+        placeholder="Digite seu E-mail"
+        data-testid="email-input"
+        value={ email }
+        onChange={ ({ target: { value } }) => setEmail(value) }
+      />
       <input
         type="password"
         placeholder="Digite sua senha"
         data-testid="password-input"
+        value={ password }
+        onChange={ ({ target: { value } }) => setPassword(value) }
       />
-      <Button type="submit" data-testid="login-submit-btn">
+
+      <Button
+        type="submit"
+        data-testid="login-submit-btn"
+        disabled={ password.length <= six || !isEmailValid(email) }
+
+      >
         Entrar
       </Button>
-    </>
+
+    </form>
   );
 }
 
