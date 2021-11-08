@@ -2,10 +2,9 @@ import React from 'react';
 import Header from '../components/Header';
 
 function Perfil() {
+  const perfil = 'Perfil';
   return (
-    <div>
-      <Header />
-    </div>
+    <Header title={ perfil } search={ false } />
   );
 }
 

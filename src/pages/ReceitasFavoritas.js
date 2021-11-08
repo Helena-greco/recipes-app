@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from '../components/Header';
 
-function ReceitasFeitas() {
-  const receitas = 'Receitas Feitas';
+function ReceitasFavoritas() {
+  const receitas = 'Receitas Favoritas';
   return (
     <Header title={ receitas } search={ false } />
   );
 }
 
-export default ReceitasFeitas;
+export default ReceitasFavoritas;

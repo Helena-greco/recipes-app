@@ -1,8 +1,10 @@
 import React from 'react';
+import Header from '../components/Header';
 
 function ExplorarBebidas() {
+  const explorar = 'Explorar Bebidas';
   return (
-    <div />
+    <Header title={ explorar } search={ false } />
   );
 }
 
