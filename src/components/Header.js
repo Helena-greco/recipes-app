@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
-import SearchInput from './SearchInput';
+import SearchBar from './SearchBar';
 
 function Header({ title, search = true }) {
   const [isClicked, setIsClicked] = useState(false);
@@ -19,7 +19,7 @@ function Header({ title, search = true }) {
           <img src={ searchIcon } alt="Busca" data-testid="search-top-btn" />
         </Button>
       )}
-      {isClicked && <SearchInput />}
+      {isClicked && <SearchBar />}
     </header>
   );
 }

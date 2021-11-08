@@ -17,6 +17,7 @@ const Provider = ({ children }) => {
   const [meals, setMeals] = useState(mealsInitialState);
   const [drinks, setDrinks] = useState(drinksInitialState);
   const [ingredientsList, setIngredientsList] = useState([]);
+  const [filteredRecipe, setFilteredRecipe] = useState([]);
 
   const setMealsList = (mealsList) => {
     setMeals({
@@ -31,6 +32,27 @@ const Provider = ({ children }) => {
       list: DrinksList,
     });
   };
+
+  const filterRecipes = async (search, type) => {
+    if (type === 'name') {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
+      const result = await response.json();
+      setFilteredRecipe(result);
+    } else if (type === 'ingredient') {
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`,
+      );
+      const result = await response.json();
+      setFilteredRecipe(result);
+    } else if (type === 'letter') {
+      const response = await fetch(
+        `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`,
+      );
+      const result = await response.json();
+      setFilteredRecipe(result);
+    }
+  };
+
   const fecthIngredients = useCallback(async (type) => {
     const MAX_INGREDIENTS = 12;
     if (type === 'comidas') {
@@ -60,6 +82,9 @@ const Provider = ({ children }) => {
     meals,
     setMeals,
     fecthIngredients,
+    filterRecipes,
+    filteredRecipe,
+    setFilteredRecipe,
   };
 
   return <RecipesContext.Provider value={ context }>{children}</RecipesContext.Provider>;
