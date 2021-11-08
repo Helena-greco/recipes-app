@@ -1,13 +1,72 @@
-// import { useState } from 'react';
-// import RecipesContext from './RecipesContext';
-// import DrinksContext from './DrinksContext';
+import React, { useState, useCallback } from 'react';
+import PropTypes from 'prop-types';
+import RecipesContext from './RecipesContext';
 
-// const [recipes, setRecipes] = useState([]);
-// const [drinks, setDrinks] = useState([]);
+const mealsInitialState = {
+  categories: [], // Lista de categorias recuperadas pela API
+  list: [], // Lista de comidas recuperadas pela API
+  inProgress: {}, // Objeto onde cada chave é o id da receita em andamento e o valor correspondente é o array com os ingredientes já marcados
+};
+const drinksInitialState = {
+  categories: [], // Lista de categorias recuperadas pela API
+  list: [], // Lista de comidas recuperadas pela API
+  inProgress: {}, // Objeto onde cada chave é o id da receita em andamento e o valor correspondente é o array com os ingredientes já marcados
+};
 
-// const recipesUrl = ''
-// const drinksUrl = ''
+const Provider = ({ children }) => {
+  const [meals, setMeals] = useState(mealsInitialState);
+  const [drinks, setDrinks] = useState(drinksInitialState);
+  const [ingredientsList, setIngredientsList] = useState([]);
 
-// const fetchRecipe = (url) => {
+  const setMealsList = (mealsList) => {
+    setMeals({
+      ...meals,
+      list: mealsList,
+    });
+  };
 
-// }
+  const setDrinksList = (DrinksList) => {
+    setDrinks({
+      ...drinks,
+      list: DrinksList,
+    });
+  };
+  const fecthIngredients = useCallback(async (type) => {
+    const MAX_INGREDIENTS = 12;
+    if (type === 'comidas') {
+      const { meals: ingredients } = await fetch(
+        'https://www.themealdb.com/api/json/v1/1/list.php?i=list',
+      ).then((response) => response.json());
+      const slice = ingredients.slice(0, MAX_INGREDIENTS);
+      setIngredientsList(slice);
+      return;
+    }
+    if (type === 'bebidas') {
+      const { drinks: ingredients } = await fetch(
+        'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list',
+      ).then((response) => response.json());
+      const slice = ingredients.slice(0, MAX_INGREDIENTS);
+      setIngredientsList(slice);
+      return;
+    }
+    setIngredientsList([]);
+  }, []);
+
+  const context = {
+    setDrinksList,
+    setMealsList,
+    ingredientsList,
+    setIngredientsList,
+    meals,
+    setMeals,
+    fecthIngredients,
+  };
+
+  return <RecipesContext.Provider value={ context }>{children}</RecipesContext.Provider>;
+};
+
+Provider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export default Provider;
