@@ -53,7 +53,7 @@ const Provider = ({ children }) => {
     }
   };
 
-  const fecthIngredients = useCallback(async (type) => {
+  const fetchIngredients = useCallback(async (type) => {
     const MAX_INGREDIENTS = 12;
     if (type === 'comidas') {
       const { meals: ingredients } = await fetch(
@@ -81,7 +81,7 @@ const Provider = ({ children }) => {
     setIngredientsList,
     meals,
     setMeals,
-    fecthIngredients,
+    fetchIngredients,
     filterRecipes,
     filteredRecipe,
     setFilteredRecipe,
