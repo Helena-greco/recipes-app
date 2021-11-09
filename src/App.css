@@ -16,10 +16,9 @@
 }
 
 .footer {
-  display: flex;
   bottom: 0;
+  display: flex;
   position: fixed;
-  flex-direction: row;
   justify-content: space-between;
   width: 100%;
 }
