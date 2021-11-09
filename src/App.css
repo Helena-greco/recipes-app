@@ -16,8 +16,12 @@
 }
 
 .footer {
+  display: flex;
   position: fixed;
-  margin-bottom: 0%;
+  bottom: 0;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /*
