@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
+import { useLocation } from 'react-router-dom';
 import RecipesContext from './RecipesContext';
 
 const mealsInitialState = {
@@ -18,6 +19,7 @@ const Provider = ({ children }) => {
   const [drinks, setDrinks] = useState(drinksInitialState);
   const [ingredientsList, setIngredientsList] = useState([]);
   const [filteredRecipe, setFilteredRecipe] = useState([]);
+  const location = useLocation();
 
   const setMealsList = (mealsList) => {
     setMeals({
@@ -34,22 +36,44 @@ const Provider = ({ children }) => {
   };
 
   const filterRecipes = async (search, type) => {
-    if (type === 'name') {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
-      const result = await response.json();
-      setFilteredRecipe(result);
-    } else if (type === 'ingredient') {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`,
-      );
-      const result = await response.json();
-      setFilteredRecipe(result);
-    } else if (type === 'letter') {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`,
-      );
-      const result = await response.json();
-      setFilteredRecipe(result);
+    if (location.pathname === '/comidas') {
+      if (type === 'name') {
+        const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
+        const result = await response.json();
+        setFilteredRecipe(result);
+      } else if (type === 'ingredient') {
+        const response = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`,
+        );
+        const result = await response.json();
+        setFilteredRecipe(result);
+      } else if (type === 'letter') {
+        const response = await fetch(
+          `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`,
+        );
+        const result = await response.json();
+        setFilteredRecipe(result);
+      }
+    } else if (location.pathname === '/bebidas') {
+      if (type === 'name') {
+        const response = await fetch(
+          `www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`,
+        );
+        const result = await response.json();
+        setFilteredRecipe(result);
+      } else if (type === 'ingredient') {
+        const response = await fetch(
+          `www.thecocktaildb.com/api/json/v1/1/search.php?i=${search}`,
+        );
+        const result = await response.json();
+        setFilteredRecipe(result);
+      } else if (type === 'letter') {
+        const response = await fetch(
+          `www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`,
+        );
+        const result = await response.json();
+        setFilteredRecipe(result);
+      }
     }
   };
 

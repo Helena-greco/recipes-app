@@ -15,10 +15,10 @@ import ExplorarComidas from './pages/ExplorarComidas';
 import ExplorarBebidas from './pages/ExplorarBebidas';
 import ExplorarPorIngrediente from './pages/ExplorarPorIngrediente';
 import ExplorarPorIngredienteBebida from './pages/ExplorarPorIngredienteBebida';
-import ExplorarBebidaArea from './pages/ExplorarBebidaArea';
+import ExplorarBebidaOrigem from './pages/ExplorarBebidaOrigem';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
-import ComidasOrigem from './pages/ComidasOrigem';
+import ExplorarComidaOrigem from './pages/ExplorarComidaOrigem';
 
 function App() {
   return (
@@ -86,7 +86,7 @@ function App() {
       <Route
         exact
         path="/explorar/bebidas/area"
-        component={ ExplorarBebidaArea }
+        component={ ExplorarBebidaOrigem }
       />
       <Route
         exact
@@ -106,7 +106,7 @@ function App() {
       <Route
         exact
         path="/explorar/comidas/area"
-        component={ ComidasOrigem }
+        component={ ExplorarComidaOrigem }
       />
     </Switch>
   );
