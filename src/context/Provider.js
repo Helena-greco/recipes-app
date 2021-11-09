@@ -16,7 +16,8 @@ const drinksInitialState = {
 const Provider = ({ children }) => {
   const [meals, setMeals] = useState(mealsInitialState);
   const [drinks, setDrinks] = useState(drinksInitialState);
-  const [ingredientsList, setIngredientsList] = useState([]);
+  // Fernando: optamos por refatorar o nome ingredientsList por RecipesList por questão semântica; 
+  const [recipesList, setRecipesList] = useState([]);
   const [filteredRecipe, setFilteredRecipe] = useState([]);
 
   const setMealsList = (mealsList) => {
@@ -53,7 +54,8 @@ const Provider = ({ children }) => {
     }
   };
 
-  const fetchIngredients = useCallback(async (type) => {
+  // Fernando: optamos por mudar o nome dessa função de fetchIngredients para fetchRecipes por questão semântica
+  const fetchRecipes = useCallback(async (type) => {
     const MAX_INGREDIENTS = 12;
     if (type === 'comidas') {
       const { meals: ingredients } = await fetch(
@@ -77,11 +79,11 @@ const Provider = ({ children }) => {
   const context = {
     setDrinksList,
     setMealsList,
-    ingredientsList,
-    setIngredientsList,
+    recipesList,
+    setRecipesList,
     meals,
     setMeals,
-    fetchIngredients,
+    fetchRecipes,
     filterRecipes,
     filteredRecipe,
     setFilteredRecipe,
