@@ -2,58 +2,97 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
+const MAX_CAT = 5;
+
 function RecipesProvider({ children }) {
   const [mealsList, setMealsList] = useState([]);
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [drinksList, setDrinksList] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
+  const [categories, setCategories] = useState([]);
 
   const fetchLists = async () => {
     const mealsResponse = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const meals = await mealsResponse.json();
     setMealsList([...meals.meals]);
+    setFilteredMeals([...meals.meals]);
     const drinksResponse = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const drinks = await drinksResponse.json();
     setDrinksList([...drinks.drinks]);
+    setFilteredDrinks([...drinks.drinks]);
+  };
+
+  const fetchCategories = async (URL) => {
+    const response = await fetch(URL);
+    const result = await response.json();
+    setCategories([...result.categories].slice(0, MAX_CAT));
   };
 
   const filterMeals = async (search, type) => {
-    if (type === 'name') {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
-      const result = await response.json();
-      setFilteredMeals(result);
-    } else if (type === 'ingredient') {
-      const response = await fetch(
+    let response;
+    let result;
+    switch (type) {
+    case 'category':
+      response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${search}`);
+      result = await response.json();
+      setFilteredMeals(result.meals);
+      break;
+    case 'name':
+      response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
+      result = await response.json();
+      setFilteredMeals(result.meals);
+      break;
+    case 'ingredient':
+      response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`,
       );
-      const result = await response.json();
-      setFilteredMeals(result);
-    } else if (type === 'letter') {
-      const response = await fetch(
+      result = await response.json();
+      setFilteredMeals(result.meals);
+      break;
+    case 'letter':
+      response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`,
       );
-      const result = await response.json();
-      setFilteredMeals(result);
+      result = await response.json();
+      setFilteredMeals(result.meals);
+      break;
+    default:
+      setFilteredMeals(mealsList);
+      break;
     }
   };
 
   const filterDrinks = async (search, type) => {
-    if (type === 'name') {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
-      const result = await response.json();
-      setFilteredDrinks(result);
-    } else if (type === 'ingredient') {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`,
+    let response;
+    let result;
+    switch (type) {
+    case 'category':
+      response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${search}`);
+      result = await response.json();
+      setFilteredDrinks(result.drinks);
+      break;
+    case 'name':
+      response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`);
+      result = await response.json();
+      setFilteredDrinks(result.drinks);
+      break;
+    case 'ingredient':
+      response = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`,
       );
-      const result = await response.json();
-      setFilteredDrinks(result);
-    } else if (type === 'letter') {
-      const response = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`,
+      result = await response.json();
+      setFilteredDrinks(result.drinks);
+      break;
+    case 'letter':
+      response = await fetch(
+        `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`,
       );
-      const result = await response.json();
-      setFilteredDrinks(result);
+      result = await response.json();
+      setFilteredDrinks(result.drinks);
+      break;
+    default:
+      setFilteredDrinks(drinksList);
+      break;
     }
   };
 
@@ -68,6 +107,9 @@ function RecipesProvider({ children }) {
     setDrinksList,
     filteredDrinks,
     setFilteredDrinks,
+    categories,
+    setCategories,
+    fetchCategories,
     fetchLists,
     filterMeals,
     filterDrinks,
