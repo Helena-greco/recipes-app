@@ -3,15 +3,14 @@ import { Button } from 'react-bootstrap';
 // import RecipesContext from '../context/RecipesContext';
 
 function Categories({ List, Filter }) {
-  const [filteredCat, setFilteredCat] = useState(false);
+  const [filteredCat, setFilteredCat] = useState('');
 
-  const filterCategory = (category) => {
-    if (!filteredCat) {
-      Filter(category, 'category');
-      setFilteredCat(true);
-    } else {
+  const filterCategory = async (category) => {
+    if (category === filteredCat) {
       Filter('', '');
-      setFilteredCat(false);
+    } else {
+      Filter(category, 'category');
+      setFilteredCat(category);
     }
   };
 
