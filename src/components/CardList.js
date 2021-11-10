@@ -11,7 +11,13 @@ function CardList({ Type }) {
     const meals = filteredMeals.slice(0, MAX_RECIPES);
     return (
       meals.map((meal, index) => (
-        <RecipeCard key={ index } Recipe={ meal } Index={ index } Type={ Type } />
+        <RecipeCard
+          key={ index }
+          Recipe={ meal }
+          Index={ index }
+          Type={ Type }
+          Route="comidas"
+        />
       ))
     );
   }
@@ -20,7 +26,13 @@ function CardList({ Type }) {
     const drinks = filteredDrinks.slice(0, MAX_RECIPES);
     return (
       drinks.map((drink, index) => (
-        <RecipeCard key={ index } Recipe={ drink } Index={ index } Type={ Type } />
+        <RecipeCard
+          key={ index }
+          Recipe={ drink }
+          Index={ index }
+          Type={ Type }
+          Route="bebidas"
+        />
       ))
     );
   }
