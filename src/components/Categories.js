@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
 // import RecipesContext from '../context/RecipesContext';
@@ -15,17 +16,33 @@ function Categories({ List, Filter }) {
   };
 
   return (
-    List.map((cat, index) => (
+    <>
+      { List.map((cat, index) => (
+        <Button
+          type="button"
+          key={ index }
+          data-testid={ `${cat.strCategory}-category-filter` }
+          onClick={ () => filterCategory(cat.strCategory) }
+        >
+          { cat.strCategory }
+        </Button>
+      )) }
       <Button
         type="button"
-        key={ index }
-        data-testid={ `${cat.strCategory}-category-filter` }
-        onClick={ () => filterCategory(cat.strCategory) }
+        data-testid="All-category-filter"
+        onClick={ () => filterCategory(filteredCat) }
       >
-        { cat.strCategory }
+        All
       </Button>
-    ))
+    </>
   );
 }
+
+Categories.propTypes = {
+  Filter: PropTypes.func.isRequired,
+  List: PropTypes.shape({
+    map: PropTypes.func,
+  }).isRequired,
+};
 
 export default Categories;
