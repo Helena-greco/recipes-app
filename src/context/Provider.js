@@ -51,6 +51,25 @@ const Provider = ({ children }) => {
       const result = await response.json();
       setFilteredRecipe(result);
     }
+    if (type === 'name') {
+      const response = await fetch(
+        `www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`,
+      );
+      const result = await response.json();
+      setFilteredRecipe(result);
+    } else if (type === 'ingredient') {
+      const response = await fetch(
+        `www.thecocktaildb.com/api/json/v1/1/search.php?i=${search}`,
+      );
+      const result = await response.json();
+      setFilteredRecipe(result);
+    } else if (type === 'letter') {
+      const response = await fetch(
+        `www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`,
+      );
+      const result = await response.json();
+      setFilteredRecipe(result);
+    }
   };
 
   const fecthIngredients = useCallback(async (type) => {

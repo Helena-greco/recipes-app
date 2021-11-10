@@ -1,16 +1,21 @@
 import React, { useState, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
 function SearchBar() {
   const [searchType, setSearchType] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const history = useHistory();
 
-  const { filterRecipes } = useContext(RecipesContext);
+  const { filteredRecipe, filterRecipes } = useContext(RecipesContext);
 
   const handleClick = () => {
     if (searchType === 'letter' && searchInput.length > 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
     } else filterRecipes(searchInput, searchType);
+    if (filteredRecipe.length > 1) {
+      history.push(`/comidas/${filteredRecipe.idMeal}`);
+    }
   };
 
   return (
