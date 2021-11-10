@@ -2,14 +2,11 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import RecipesContext from './RecipesContext';
 
-const MAX_CAT = 5;
-
 function RecipesProvider({ children }) {
   const [mealsList, setMealsList] = useState([]);
   const [filteredMeals, setFilteredMeals] = useState([]);
   const [drinksList, setDrinksList] = useState([]);
   const [filteredDrinks, setFilteredDrinks] = useState([]);
-  const [categories, setCategories] = useState([]);
 
   const fetchLists = async () => {
     const mealsResponse = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
@@ -20,12 +17,6 @@ function RecipesProvider({ children }) {
     const drinks = await drinksResponse.json();
     setDrinksList([...drinks.drinks]);
     setFilteredDrinks([...drinks.drinks]);
-  };
-
-  const fetchCategories = async (URL) => {
-    const response = await fetch(URL);
-    const result = await response.json();
-    setCategories([...result.categories].slice(0, MAX_CAT));
   };
 
   const filterMeals = async (search, type) => {
@@ -107,9 +98,6 @@ function RecipesProvider({ children }) {
     setDrinksList,
     filteredDrinks,
     setFilteredDrinks,
-    categories,
-    setCategories,
-    fetchCategories,
     fetchLists,
     filterMeals,
     filterDrinks,
