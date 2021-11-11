@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 
 function Profile() {
   const history = useHistory();
-  const email = localStorage.getItem('user') || '{ "email": "email@mail.com" }';
+  const email = localStorage.getItem('user');
   const parseEmail = JSON.parse(email);
 
   const handleExitPage = () => {
@@ -14,7 +14,7 @@ function Profile() {
 
   return (
     <>
-      <p data-testid="profile-email">{parseEmail.email}</p>
+      <h3 data-testid="profile-email">{parseEmail.email}</h3>
       <Button
         type="button"
         data-testid="profile-done-btn"
