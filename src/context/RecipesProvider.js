@@ -12,11 +12,15 @@ function RecipesProvider({ children }) {
     const mealsResponse = await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     const meals = await mealsResponse.json();
     setMealsList([...meals.meals]);
-    setFilteredMeals([...meals.meals]);
+    if (meals.meals) {
+      setFilteredMeals([...meals.meals]);
+    } else setFilteredMeals([]);
     const drinksResponse = await fetch('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     const drinks = await drinksResponse.json();
     setDrinksList([...drinks.drinks]);
-    setFilteredDrinks([...drinks.drinks]);
+    if (drinks.drinks) {
+      setFilteredDrinks([...drinks.drinks]);
+    } else setFilteredDrinks([]);
   };
 
   const filterMeals = async (search, type) => {

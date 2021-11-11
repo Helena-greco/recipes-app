@@ -21,7 +21,11 @@ function Comidas() {
   useEffect(() => { fetchCategories(); }, []);
 
   const history = useHistory();
-  if (filteredMeals.length === 1) history.push(`comidas/${filteredMeals[0].idMeal}`);
+  if (!filteredMeals) {
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  } else if (filteredMeals.length === 1) {
+    history.push(`comidas/${filteredMeals[0].idMeal}`);
+  }
 
   return (
     <div>

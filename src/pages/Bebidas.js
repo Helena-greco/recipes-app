@@ -21,7 +21,11 @@ function Bebidas() {
   useEffect(() => { fetchCategories(); }, []);
 
   const history = useHistory();
-  if (filteredDrinks.length === 1) history.push(`bebidas/${filteredDrinks[0].idDrink}`);
+  if (!filteredDrinks) {
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  } else if (filteredDrinks.length === 1) {
+    history.push(`bebidas/${filteredDrinks[0].idDrink}`);
+  }
 
   return (
     <div>
