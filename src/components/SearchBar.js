@@ -1,20 +1,32 @@
 import React, { useState, useContext } from 'react';
+import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
 import RecipesContext from '../context/RecipesContext';
 
-function SearchBar() {
+function SearchBar({ Filter, Type }) {
   const [searchType, setSearchType] = useState('');
   const [searchInput, setSearchInput] = useState('');
+  const { setFilteredMeals, setFilteredDrinks } = useContext(RecipesContext);
   const history = useHistory();
 
-  const { filteredRecipe, filterRecipes } = useContext(RecipesContext);
-
-  const handleClick = () => {
+  const handleClick = async () => {
+    let filtered = [];
     if (searchType === 'letter' && searchInput.length > 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
-    } else filterRecipes(searchInput, searchType);
-    if (filteredRecipe.length > 1) {
-      history.push(`/comidas/${filteredRecipe.idMeal}`);
+    } else {
+      filtered = await Filter(searchInput, searchType);
+      switch (Type.toLowerCase()) {
+      case 'comidas':
+        await setFilteredMeals(filtered);
+        if (filtered.length === 1) history.push(`comidas/${filtered[0].idMeal}`);
+        break;
+      case 'bebidas':
+        await setFilteredDrinks(filtered);
+        if (filtered.length === 1) history.push(`bebidas/${filtered[0].idDrink}`);
+        break;
+      default:
+        break;
+      }
     }
   };
 
@@ -66,5 +78,9 @@ function SearchBar() {
     </section>
   );
 }
+
+SearchBar.propTypes = {
+  Filter: PropTypes.func,
+}.isRequired;
 
 export default SearchBar;

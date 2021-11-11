@@ -6,7 +6,7 @@ import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 import SearchBar from './SearchBar';
 
-function Header({ title, search = true }) {
+function Header({ title, search = true, Filter }) {
   const [isClicked, setIsClicked] = useState(false);
   return (
     <header>
@@ -19,13 +19,15 @@ function Header({ title, search = true }) {
           <img src={ searchIcon } alt="Busca" data-testid="search-top-btn" />
         </Button>
       )}
-      {isClicked && <SearchBar />}
+      {isClicked && <SearchBar Filter={ Filter } Type={ title } />}
     </header>
   );
 }
 
 Header.propTypes = {
-  title: PropTypes.string.isRequired,
+  Filter: PropTypes.func.isRequired,
   search: PropTypes.bool.isRequired,
+  title: PropTypes.string.isRequired,
 };
+
 export default Header;

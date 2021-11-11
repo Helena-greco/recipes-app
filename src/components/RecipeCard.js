@@ -10,6 +10,7 @@ function RecipeCard({ Recipe, Index, Type, Route }) {
     <button
       type="button"
       onClick={ () => history.push(`/${Route}/${Recipe[`id${Type}`]}`) }
+      className="RecipeCard"
     >
       <Card style={ { width: '18rem' } } data-testid={ `${Index}-recipe-card` }>
         <Card.Img

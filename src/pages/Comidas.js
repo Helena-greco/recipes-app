@@ -9,7 +9,7 @@ const COMIDAS = 'Comidas';
 const MAX_CAT = 5;
 
 function Comidas() {
-  const { filterMeals } = useContext(RecipesContext);
+  const { filterMeals, filteredMeals } = useContext(RecipesContext);
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
     const response = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
@@ -19,10 +19,14 @@ function Comidas() {
 
   useEffect(() => { fetchCategories(); }, []);
 
+  if (!filteredMeals) {
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
   return (
     <div>
-      <Header title={ COMIDAS } />
-      <Categories List={ categories } Filter={ filterMeals } />
+      <Header title={ COMIDAS } Filter={ filterMeals } />
+      <Categories List={ categories } Filter={ filterMeals } Type="comidas" />
       <CardList Type="Meal" />
       <Footer />
     </div>

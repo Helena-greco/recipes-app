@@ -1,17 +1,41 @@
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
 import { Button } from 'react-bootstrap';
-// import RecipesContext from '../context/RecipesContext';
+import RecipesContext from '../context/RecipesContext';
 
-function Categories({ List, Filter }) {
+function Categories({ List, Filter, Type }) {
   const [filteredCat, setFilteredCat] = useState('');
 
+  const { setFilteredMeals, setFilteredDrinks } = useContext(RecipesContext);
+
   const filterCategory = async (category) => {
+    let filtered = [];
     if (category === filteredCat) {
-      Filter('', '');
+      filtered = await Filter('', '');
+      switch (Type.toLowerCase()) {
+      case 'comidas':
+        await setFilteredMeals(filtered);
+        break;
+      case 'bebidas':
+        await setFilteredDrinks(filtered);
+        break;
+      default:
+        break;
+      }
     } else {
-      Filter(category, 'category');
-      setFilteredCat(category);
+      filtered = await Filter(category, 'category');
+      switch (Type.toLowerCase()) {
+      case 'comidas':
+        await setFilteredMeals(filtered);
+        setFilteredCat(category);
+        break;
+      case 'bebidas':
+        await setFilteredDrinks(filtered);
+        setFilteredCat(category);
+        break;
+      default:
+        break;
+      }
     }
   };
 
@@ -39,10 +63,13 @@ function Categories({ List, Filter }) {
 }
 
 Categories.propTypes = {
-  Filter: PropTypes.func.isRequired,
+  Filter: PropTypes.func,
   List: PropTypes.shape({
     map: PropTypes.func,
-  }).isRequired,
-};
+  }),
+  Type: PropTypes.shape({
+    toLowerCase: PropTypes.func,
+  }),
+}.isRequired;
 
 export default Categories;

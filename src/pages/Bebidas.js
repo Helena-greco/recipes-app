@@ -9,7 +9,7 @@ const BEBIDAS = 'Bebidas';
 const MAX_CAT = 5;
 
 function Bebidas() {
-  const { filterDrinks } = useContext(RecipesContext);
+  const { filterDrinks, filteredDrinks } = useContext(RecipesContext);
   const [categories, setCategories] = useState([]);
   const fetchCategories = async () => {
     const response = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
@@ -19,10 +19,14 @@ function Bebidas() {
 
   useEffect(() => { fetchCategories(); }, []);
 
+  if (!filteredDrinks) {
+    global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+  }
+
   return (
     <div>
-      <Header title={ BEBIDAS } />
-      <Categories List={ categories } Filter={ filterDrinks } />
+      <Header title={ BEBIDAS } Filter={ filterDrinks } />
+      <Categories List={ categories } Filter={ filterDrinks } Type="bebidas" />
       <CardList Type="Drink" />
       <Footer />
     </div>
