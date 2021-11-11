@@ -1,21 +1,14 @@
-import React, { useState, useContext } from 'react';
-import { useHistory } from 'react-router-dom';
-import RecipesContext from '../context/RecipesContext';
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 
-function SearchBar() {
+function SearchBar({ Filter }) {
   const [searchType, setSearchType] = useState('');
   const [searchInput, setSearchInput] = useState('');
-  const history = useHistory();
-
-  const { filteredRecipe, filterRecipes } = useContext(RecipesContext);
 
   const handleClick = () => {
     if (searchType === 'letter' && searchInput.length > 1) {
       global.alert('Sua busca deve conter somente 1 (um) caracter');
-    } else filterRecipes(searchInput, searchType);
-    if (filteredRecipe.length > 1) {
-      history.push(`/comidas/${filteredRecipe.idMeal}`);
-    }
+    } else Filter(searchInput, searchType);
   };
 
   return (
@@ -66,5 +59,9 @@ function SearchBar() {
     </section>
   );
 }
+
+SearchBar.propTypes = {
+  Filter: PropTypes.func,
+}.isRequired;
 
 export default SearchBar;
