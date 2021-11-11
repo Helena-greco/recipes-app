@@ -2,10 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import Categories from '../components/Categories';
 import CardList from '../components/CardList';
+import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 
-const BEBIDAS = 'bebidas';
+const BEBIDAS = 'Bebidas';
 const MAX_CAT = 5;
+
 
 function Bebidas() {
   const { filterDrinks } = useContext(RecipesContext);
@@ -23,6 +25,7 @@ function Bebidas() {
       <Header title={ BEBIDAS } />
       <Categories List={ categories } Filter={ filterDrinks } />
       <CardList Type="Drink" />
+      <Footer />
     </div>
   );
 }

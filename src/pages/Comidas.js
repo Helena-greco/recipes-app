@@ -2,6 +2,7 @@ import React, { useEffect, useContext, useState } from 'react';
 import Header from '../components/Header';
 import CardList from '../components/CardList';
 import Categories from '../components/Categories';
+import Footer from '../components/Footer';
 import RecipesContext from '../context/RecipesContext';
 
 const COMIDAS = 'Comidas';
@@ -23,6 +24,7 @@ function Comidas() {
       <Header title={ COMIDAS } />
       <Categories List={ categories } Filter={ filterMeals } />
       <CardList Type="Meal" />
+      <Footer />
     </div>
   );
 }
