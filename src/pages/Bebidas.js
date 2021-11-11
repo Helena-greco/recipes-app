@@ -8,7 +8,6 @@ import RecipesContext from '../context/RecipesContext';
 const BEBIDAS = 'Bebidas';
 const MAX_CAT = 5;
 
-
 function Bebidas() {
   const { filterDrinks } = useContext(RecipesContext);
   const [categories, setCategories] = useState([]);
