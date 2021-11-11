@@ -63,10 +63,13 @@ function Categories({ List, Filter, Type }) {
 }
 
 Categories.propTypes = {
-  Filter: PropTypes.func.isRequired,
+  Filter: PropTypes.func,
   List: PropTypes.shape({
     map: PropTypes.func,
-  }).isRequired,
-};
+  }),
+  Type: PropTypes.shape({
+    toLowerCase: PropTypes.func,
+  }),
+}.isRequired;
 
 export default Categories;
