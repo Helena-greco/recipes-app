@@ -30,30 +30,25 @@ function RecipesProvider({ children }) {
     case 'category':
       response = await fetch(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${search}`);
       result = await response.json();
-      setFilteredMeals(result.meals);
-      break;
+      return result.meals;
     case 'name':
       response = await fetch(`https://www.themealdb.com/api/json/v1/1/search.php?s=${search}`);
       result = await response.json();
-      setFilteredMeals(result.meals);
-      break;
+      return result.meals;
     case 'ingredient':
       response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/filter.php?i=${search}`,
       );
       result = await response.json();
-      setFilteredMeals(result.meals);
-      break;
+      return result.meals;
     case 'letter':
       response = await fetch(
         `https://www.themealdb.com/api/json/v1/1/search.php?f=${search}`,
       );
       result = await response.json();
-      setFilteredMeals(result.meals);
-      break;
+      return result.meals;
     default:
-      setFilteredMeals(mealsList);
-      break;
+      return mealsList;
     }
   };
 
@@ -64,30 +59,25 @@ function RecipesProvider({ children }) {
     case 'category':
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${search}`);
       result = await response.json();
-      setFilteredDrinks(result.drinks);
-      break;
+      return result.drinks;
     case 'name':
       response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${search}`);
       result = await response.json();
-      setFilteredDrinks(result.drinks);
-      break;
+      return result.drinks;
     case 'ingredient':
       response = await fetch(
         `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${search}`,
       );
       result = await response.json();
-      setFilteredDrinks(result.drinks);
-      break;
+      return result.drinks;
     case 'letter':
       response = await fetch(
         `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${search}`,
       );
       result = await response.json();
-      setFilteredDrinks(result.drinks);
-      break;
+      return result.drinks;
     default:
-      setFilteredDrinks(drinksList);
-      break;
+      return drinksList;
     }
   };
 

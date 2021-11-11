@@ -19,7 +19,7 @@ function Header({ title, search = true, Filter }) {
           <img src={ searchIcon } alt="Busca" data-testid="search-top-btn" />
         </Button>
       )}
-      {isClicked && <SearchBar Filter={ Filter } />}
+      {isClicked && <SearchBar Filter={ Filter } Type={ title } />}
     </header>
   );
 }

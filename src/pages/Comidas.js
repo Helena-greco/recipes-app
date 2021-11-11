@@ -1,5 +1,4 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import CardList from '../components/CardList';
 import Categories from '../components/Categories';
@@ -20,17 +19,14 @@ function Comidas() {
 
   useEffect(() => { fetchCategories(); }, []);
 
-  const history = useHistory();
   if (!filteredMeals) {
     global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
-  } else if (filteredMeals.length === 1) {
-    history.push(`comidas/${filteredMeals[0].idMeal}`);
   }
 
   return (
     <div>
       <Header title={ COMIDAS } Filter={ filterMeals } />
-      <Categories List={ categories } Filter={ filterMeals } />
+      <Categories List={ categories } Filter={ filterMeals } Type="comidas" />
       <CardList Type="Meal" />
       <Footer />
     </div>
