@@ -35,7 +35,7 @@ function App() {
       />
       <Route
         exact
-        path="comidas/:id"
+        path="/comidas/:id"
         component={ DetalhesComida }
       />
       <Route
