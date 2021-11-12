@@ -4,7 +4,8 @@ import { useHistory } from 'react-router-dom';
 
 function Profile() {
   const history = useHistory();
-  const email = localStorage.getItem('user');
+  /** Ref.: Consulta ao repositório do grupo 9 sobre o email no LocalStorage, caso a chave 'user' seja null */
+  const email = localStorage.getItem('user') || '{ "email": "" }';
   const parseEmail = JSON.parse(email);
 
   const handleExitPage = () => {
