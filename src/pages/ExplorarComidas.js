@@ -13,6 +13,12 @@ function ExplorarComidas() {
     history.push(`/explorar/comidas/${route}`);
   };
 
+  const handleSurprise = async () => {
+    const resolve = await fetch('https://www.themealdb.com/api/json/v1/1/random.php');
+    const result = await resolve.json();
+    history.push(`/comidas/${result.meals[0].idMeal}`);
+  };
+
   return (
     <>
       <Header title={ EXPLORAR } search={ false } />
@@ -33,6 +39,7 @@ function ExplorarComidas() {
       <Button
         type="button"
         data-testid="explore-surprise"
+        onClick={ handleSurprise }
       >
         Me Surpreenda!
       </Button>

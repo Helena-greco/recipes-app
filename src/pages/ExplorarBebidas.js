@@ -13,6 +13,12 @@ function ExplorarBebidas() {
     history.push(`/explorar/bebidas/${route}`);
   };
 
+  const handleSurprise = async () => {
+    const resolve = await fetch('https://www.thecocktaildb.com/api/json/v1/1/random.php');
+    const result = await resolve.json();
+    history.push(`/bebidas/${result.drinks[0].idDrink}`);
+  };
+
   return (
     <>
       <Header title={ EXPLORAR } search={ false } />
@@ -22,9 +28,14 @@ function ExplorarBebidas() {
         onClick={ (() => { handleClick('ingredientes'); }) }
       >
         Por Ingredientes
-
       </Button>
-      <Button type="button" data-testid="explore-surprise">Me Surpreenda!</Button>
+      <Button
+        type="button"
+        data-testid="explore-surprise"
+        onClick={ handleSurprise }
+      >
+        Me Surpreenda!
+      </Button>
       <Footer />
     </>
   );
